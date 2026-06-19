@@ -1,0 +1,67 @@
+{
+  "jd_parsed": {
+    "role": "Senior AI Product Manager",
+    "seniority": "senior",
+    "must_have": ["LLM","RAG","evals","FHIR","BFSI","agentic"],
+    "nice_to_have": ["MCP","LangGraph","Promptfoo"],
+    "sector": ["fintech","healthcare","regulated AI"],
+    "soft": ["stakeholder mgmt","executive comms"]
+  },
+  "questions": [
+    {"prompt":"Business Impact: revenue, retention, adoption, NPS, cost saved?","placeholder":"e.g. lifted approval accuracy 75→99%, saved $1.2M/yr"},
+    {"prompt":"Leadership & Influence: team size, cross-functional partners?","placeholder":"e.g. 12-person squad, 4 stakeholder VPs"},
+    {"prompt":"Technical Depth: model evaluation framework, latency/cost/accuracy trade-offs?","placeholder":"e.g. Promptfoo + LLM-judge, p95 < 3s, $0.05/decision"},
+    {"prompt":"Customer Discovery: user research scope, validation rigor?","placeholder":"e.g. 30 banker interviews, 4 A/B tests"},
+    {"prompt":"Innovation: 0-to-1 launches, playbooks shipped?","placeholder":"e.g. shipped first agentic KYC product to 3 banks"}
+  ],
+  "generated": {
+    "claude": {
+      "ats_score": 96, "human_score": 92,
+      "ats_breakdown": {"must_have":"6/6","nice_to_have":"3/3","tools":"100%","sector":"high"},
+      "human_breakdown": {"quantification":"high","verbs":"concrete","ai_slang":"none","seniority":"matched"},
+      "bullets": [
+        "Lifted regulated-approval accuracy from 75% to 99% via Promptfoo-gated RAG, saving $1.2M/yr.",
+        "Led 12-person multi-agent BFSI squad shipping agentic KYC to 3 tier-1 banks.",
+        "Designed eval harness (LLM-as-judge + golden set) reducing hallucination to <0.1%."
+      ],
+      "provenance": [
+        {"bullet":"Lifted regulated-approval accuracy 75→99%","source":"Q1 answer"},
+        {"bullet":"Led 12-person multi-agent BFSI squad","source":"Q2 answer + master resume"},
+        {"bullet":"Designed eval harness","source":"Q3 answer"}
+      ]
+    },
+    "gemini": {
+      "ats_score": 94, "human_score": 89,
+      "ats_breakdown": {"must_have":"6/6","nice_to_have":"2/3","tools":"90%","sector":"high"},
+      "human_breakdown": {"quantification":"high","verbs":"good","ai_slang":"minor","seniority":"matched"},
+      "bullets": [
+        "Improved approval accuracy from 75% to 99% using RAG and evals.",
+        "Managed 12 engineers building agentic KYC for 3 banks.",
+        "Built eval framework reducing hallucinations below 0.1%."
+      ],
+      "provenance": [{"bullet":"Improved approval accuracy 75→99%","source":"Q1 answer"}]
+    },
+    "grok": {
+      "ats_score": 92, "human_score": 88,
+      "ats_breakdown": {"must_have":"5/6","nice_to_have":"3/3","tools":"95%","sector":"medium"},
+      "human_breakdown": {"quantification":"high","verbs":"good","ai_slang":"none","seniority":"matched"},
+      "bullets": [
+        "Drove approval accuracy from 75% to 99% via agentic RAG with evals.",
+        "Shipped multi-agent KYC across 3 banks with a 12-person team.",
+        "Owned eval harness — hallucinations < 0.1%, p95 < 3s."
+      ],
+      "provenance": [{"bullet":"Drove approval accuracy 75→99%","source":"Q1 answer"}]
+    },
+    "ollama": {
+      "ats_score": 88, "human_score": 85,
+      "ats_breakdown": {"must_have":"5/6","nice_to_have":"2/3","tools":"85%","sector":"medium"},
+      "human_breakdown": {"quantification":"medium","verbs":"good","ai_slang":"none","seniority":"matched"},
+      "bullets": [
+        "Achieved 99% accuracy in approvals using RAG (from 75%).",
+        "Led 12-person team on agentic KYC for 3 banks.",
+        "Hallucination rate brought below 0.1% via eval harness."
+      ],
+      "provenance": [{"bullet":"Achieved 99% accuracy","source":"Q1 answer"}]
+    }
+  }
+}

@@ -52,3 +52,19 @@ ResumeForge encodes my manual resume-optimisation workflow — proven across mul
 
 ---
 License: MIT
+
+
+---
+
+## 🚀 Live Prototype
+**[https://vittobh.github.io/resumeforge/](https://vittobh.github.io/resumeforge/)**
+
+Working front-end prototype: upload resume → paste JD → answer 5 discovery questions → see ATS + Human scores + provenance map. Mock backend by default; paste your Anthropic key into browser localStorage to attempt live Claude calls.
+
+## 🤖 AI Use Cases (2026)
+See **[AI_USE_CASES.md](AI_USE_CASES.md)** for the full agentic upgrade plan, recommended OSS stack (Claude, Gemini, Grok, Ollama, Aider, OpenHands, Promptfoo, Langfuse, etc.), concrete prompt patterns, eval harness, and cost envelope.
+
+## ⚠️ Limitations
+See **[LIMITATIONS.md](LIMITATIONS.md)** — what's mocked, what needs API keys, what needs a server proxy.
+
+UI: light + dark mode (toggle in header, respects system preference).

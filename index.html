@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>ResumeForge — AI Resume Optimisation</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"></head>
+<body>
+<header>
+  <div><h1>ResumeForge <span class="badge">POC</span></h1>
+    <div class="tagline">PRD → ATS-optimised 2-page Word resume · multi-model · 5-question discovery</div></div>
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">☾ Dark</button>
+</header>
+<main>
+  <div id="ai-banner" class="banner" style="display:none"></div>
+  <div class="row" style="margin-bottom:1rem">
+    <span class="dim">Live AI keys:</span>
+    <button class="btn btn-ghost" onclick="app.setKey('anthropic')">+ Claude</button>
+    <button class="btn btn-ghost" onclick="app.setKey('gemini')">+ Gemini</button>
+    <button class="btn btn-ghost" onclick="app.setKey('grok')">+ Grok</button>
+  </div>
+
+  <div class="grid" style="grid-template-columns:1fr 1fr">
+    <div class="card"><h3>1. Master Resume</h3>
+      <input type="file" id="resume-file" accept=".docx,.md,.pdf" class="input">
+      <div class="dim" style="margin-top:.5rem;font-size:.8rem">Mock parse — file never leaves your browser.</div>
+      <pre id="resume-preview" style="margin-top:.5rem;display:none"></pre>
+    </div>
+    <div class="card"><h3>2. Job Description</h3>
+      <textarea id="jd" class="textarea" rows="6" placeholder="Paste target JD..."></textarea>
+      <button class="btn" style="margin-top:.5rem" onclick="parseJD()">Parse JD</button>
+      <div id="jd-parsed" class="dim" style="font-size:.825rem;margin-top:.5rem"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1rem"><h3>3. Five Discovery Questions <span class="dim" style="font-weight:400">(JD-tuned)</span></h3>
+    <div id="questions" class="dim">Parse the JD first to generate questions.</div>
+  </div>
+
+  <div class="card" style="margin-top:1rem"><h3>4. Model</h3>
+    <div class="row">
+      <label><input type="radio" name="model" value="claude" checked> Claude Opus 4.7</label>
+      <label><input type="radio" name="model" value="gemini"> Gemini 2.x</label>
+      <label><input type="radio" name="model" value="grok"> Grok</label>
+      <label><input type="radio" name="model" value="ollama"> Ollama (local)</label>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin:1.5rem 0">
+    <button class="btn btn-primary" style="padding:.6rem 1.5rem" onclick="generate()">Generate Tailored Resume</button>
+  </div>
+
+  <div id="results" style="display:none">
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="card"><h3>ATS Score</h3>
+        <div id="ats-score" style="font-size:2rem;font-weight:700"></div>
+        <div id="ats-breakdown" style="font-size:.8rem" class="dim"></div></div>
+      <div class="card"><h3>Human Score</h3>
+        <div id="human-score" style="font-size:2rem;font-weight:700"></div>
+        <div id="human-breakdown" style="font-size:.8rem" class="dim"></div></div>
+    </div>
+    <div class="card" style="margin-top:1rem"><h3>Generated Bullets</h3>
+      <ul id="bullets" style="margin:0;padding-left:1.2rem"></ul></div>
+    <div class="card" style="margin-top:1rem"><h3>Provenance Map</h3>
+      <table><thead><tr><th>Bullet</th><th>Source</th></tr></thead><tbody id="provenance"></tbody></table></div>
+    <div style="text-align:center;margin:1rem 0">
+      <button class="btn" onclick="downloadMock()">⬇ Download tailored.docx (mock)</button>
+    </div>
+  </div>
+</main>
+<script src="app.js"></script><script src="page.js"></script>
+</body></html>
