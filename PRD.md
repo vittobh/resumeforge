@@ -6,7 +6,7 @@
 | Version | 0.1 — Proof of Concept |
 | Author | Vittobha Vignesh S |
 | Status | Draft for build |
-| Target stack | Python 3.11+, Anthropic Claude API / OpenAI API, python-docx, Streamlit |
+| Target stack | Python 3.11+, free/reusable LLM provider layer, Gemini API free tier, Groq free plan, Ollama local, python-docx, Streamlit |
 
 ## 1. Executive summary
 ResumeForge is a single-feature POC that takes a candidate's master resume (`.docx` or `.md`) and a target job description, asks the user 5 strategic discovery questions to extract uncovered context, and generates a tailored, ATS-optimised 2-page Word resume aligned to the target role with ATS ≥ 94% and Human ≥ 90% scores.
@@ -116,7 +116,7 @@ Each question is dynamically rephrased based on JD parsing.
 | Performance | Full pipeline < 90 seconds |
 | Accuracy | ATS ≥ 94%, Human ≥ 90% |
 | Privacy | No resume data persisted server-side in POC |
-| Cost | < $0.50 per generation (Anthropic rates) |
+| Cost | $0 MVP demo path; paid provider optional only after validation |
 | Usability | Zero-config; offline-capable with local LLM swap |
 | Compatibility | `.docx` opens cleanly in Word / Google Docs / LibreOffice |
 | Validation | Generated `.docx` passes XML validation before download |
@@ -138,7 +138,7 @@ Each question is dynamically rephrased based on JD parsing.
 ┌──▼──────────┐    ┌───────▼────────┐    ┌────────▼────────┐
 │  Resume     │    │   JD Parser    │    │  Discovery      │
 │  Parser     │    │  (spaCy +      │    │  Engine         │
-│ (python-    │    │   Claude)      │    │  (Claude prompt │
+│ (python-    │    │ deterministic  │    │  (provider-     │
 │  docx /     │    └───────┬────────┘    │   templates)    │
 │  markdown)  │            │             └────────┬────────┘
 └──┬──────────┘            │                      │
@@ -152,7 +152,7 @@ Each question is dynamically rephrased based on JD parsing.
               │
        ┌──────▼────────────────────────────────┐
        │   GENERATION ORCHESTRATOR             │
-       │   (direct Anthropic SDK)              │
+       │   (Free LLM Router + local fallback)  │
        └──────┬────────────────────────────────┘
               │
    ┌──────────┼──────────────────┬─────────────┐
@@ -174,8 +174,11 @@ Each question is dynamically rephrased based on JD parsing.
 | Conversion | `pypandoc` |
 | Markdown | `markdown-it-py` |
 | PDF read | `pdfplumber` |
-| LLM (primary) | `anthropic` (Claude Opus) |
-| LLM (fallback) | `openai` |
+| LLM router | Provider abstraction with deterministic fallback |
+| Hosted free option | Gemini API free tier |
+| Fast hosted fallback | Groq free plan |
+| Local private fallback | Ollama running local open models |
+| Paid optional later | OpenAI / Anthropic / OpenRouter only if user configures key |
 | Token counting | `tiktoken` |
 | NLP | `spaCy` (en_core_web_sm) |
 | Keyword | `scikit-learn` TF-IDF, `rapidfuzz`, `nltk` |

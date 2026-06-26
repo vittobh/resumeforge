@@ -5,17 +5,17 @@ Today ResumeForge is a 4-LLM-call pipeline. Tomorrow it's a multi-agent crew:
 
 | Agent | Role | Tool |
 |---|---|---|
-| JD Parser | Extract role / seniority / must-haves / sector | Claude Sonnet 4.6 |
+| JD Parser | Extract role / seniority / must-haves / sector | deterministic parser + Gemini free tier fallback |
 | Gap Analyser | TF-IDF + semantic match vs master resume | sentence-transformers + scikit-learn |
-| Discovery Question Builder | 5 JD-tuned high-leverage questions | Claude Opus 4.7 |
-| Writer | Bullet generation with provenance | Claude / Gemini / Grok (parallel A/B) |
-| Critic | ATS + Human + AI-slang detector | LLM-as-judge (Gemini 2.x long-context for full doc) |
+| Discovery Question Builder | 5 JD-tuned high-leverage questions | Gemini free tier / Groq free plan / Ollama local |
+| Writer | Bullet generation with provenance | Gemini free tier first, Groq fallback, Ollama local fallback |
+| Critic | ATS + Human + AI-slang detector | deterministic scorer first, Gemini judge optional |
 | Style Enforcer | Calibri 9.5pt · 2-page · no AI slang | python-docx + Promptfoo regression |
 
 Orchestrated via **LangGraph** or **CrewAI** with **Aider** in the loop for prompt self-improvement.
 
 ## Recommended stack (free/MIT)
-- **LLMs:** Claude Opus 4.7 / Sonnet 4.6 (primary), Gemini 2.x (long-context critic), Grok (second-opinion judge), Ollama + Llama 3 (private fallback)
+- **LLMs:** Gemini API free tier (primary hosted MVP), Groq free plan (fast fallback), Ollama + local models (private zero-cost fallback), OpenRouter/OpenAI/Anthropic only as optional paid adapters
 - **Coding agents:** Claude Code, Cursor, Aider, OpenHands, Gemini CLI
 - **NLP:** spaCy · sentence-transformers · rapidfuzz
 - **Eval:** Promptfoo · DeepEval · Inspect (UK AISI)
@@ -66,15 +66,15 @@ tests:
 ```
 
 ## Cost envelope
-| Path | Tokens (in/out) | Cost @ 2026 Anthropic rates |
+| Path | Tokens (in/out) | MVP provider strategy |
 |---|---|---|
-| JD parse | 800 / 200 | $0.005 |
-| 5 questions | 1.2k / 600 | $0.012 |
-| Bullet gen × 3 roles | 4.5k / 900 | $0.040 |
-| Critic | 3k / 300 | $0.020 |
-| **Total** | ~10k / 2k | **~$0.08** |
+| JD parse | 800 / 200 | deterministic first; Gemini free tier fallback |
+| 5 questions | 1.2k / 600 | Gemini free tier / Groq free plan |
+| Bullet gen × 3 roles | 4.5k / 900 | Gemini free tier first; Ollama local if quota hit |
+| Critic | 3k / 300 | deterministic first; Gemini optional |
+| **Total** | ~10k / 2k | **Target $0 for MVP demo path** |
 
-Target: < $0.50 per generation — comfortable headroom.
+Target: $0 for MVP demo path. Paid providers become opt-in adapters after product validation.
 
 ## Why this differentiates from Rezi / Teal / Enhancv
 Those tools optimise words already on the page. ResumeForge **extracts uncovered context first** (the 5-question discovery loop), then writes — that's where the ATS + Human score lift compounds.

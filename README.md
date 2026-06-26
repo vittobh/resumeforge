@@ -3,9 +3,11 @@
 > A POC that turns a master resume + a job description into a tailored, ATS-optimised 2-page Word resume — gated by a 5-question discovery loop that extracts the 30–40% of context most candidates forget to include.
 
 **Author:** Vittobha Vignesh S · **Status:** Draft for build · **Version:** 0.1 (POC)
-**Stack:** Python 3.11+ · Anthropic Claude · `python-docx` · Streamlit · FastAPI
+**Stack:** Python 3.11+ · Free/reusable LLM provider layer (Gemini free tier · Groq free plan · Ollama local) · `python-docx` · Streamlit · FastAPI
 
 See the full PRD/SRS → **[PRD.md](PRD.md)**.
+
+MVP product plan → **[MVP.md](MVP.md)**.
 
 ## Core insight
 > 90% of resume quality lift comes from extracting context the user forgot to include — not from rewriting what's already there.
@@ -24,7 +26,7 @@ Existing tools (Rezi, Teal, Enhancv, Kickresume) optimise the words already on t
 ## Success criteria
 - ATS score ≥ **94%** · Human score ≥ **90%**
 - End-to-end pipeline < **90 seconds**
-- Cost < **$0.50 / generation** at Anthropic API rates
+- Cost target: **$0 for MVP demo path** using deterministic fallback + Gemini free tier / Groq free plan / Ollama local where available
 - Zero `.docx` validation failures across 10 test outputs
 - 7/10 users prefer ResumeForge output over original in blind A/B
 
@@ -34,7 +36,8 @@ Streamlit UI → FastAPI → [Resume Parser · JD Parser · Discovery Engine]
                               ↓
                      Gap Analyser (TF-IDF + spaCy)
                               ↓
-                  Generation Orchestrator (Claude / OpenAI fallback)
+                  Generation Orchestrator (Free LLM Router)
+                    Gemini free tier · Groq free plan · Ollama local
                               ↓
               [Docx Writer · Score Engine · ATS Validator · SQLite Cache]
 ```
@@ -66,6 +69,26 @@ See **[AI_USE_CASES.md](AI_USE_CASES.md)** for the full agentic upgrade plan, re
 
 ## 🧭 Browser Skill
 See **[browser-skill/SKILL.md](browser-skill/SKILL.md)** and **[browser-skill/PATTERNS.md](browser-skill/PATTERNS.md)** for reusable browser navigation, click, typing, verification, and save-confirmation patterns. Use this with Codex Chrome plugin, Gemini CLI, Claude Code, Cursor, or any AI agent that operates a browser.
+
+## 🔌 Backend API
+Backend scaffold lives in **[backend/](backend/)**.
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn backend.app.main:app --reload --app-dir ..
+```
+
+Smoke test without frontend:
+
+```bash
+cd backend
+PYTHONPATH=.. python scripts/smoke_test.py
+```
+
+LLM policy: deterministic-first. Groq is used only for final 10% polish when `GROQ_API_KEY` is provided locally through environment variables. Never commit `.env`.
 
 ## ⚠️ Limitations
 See **[LIMITATIONS.md](LIMITATIONS.md)** — what's mocked, what needs API keys, what needs a server proxy.
