@@ -64,6 +64,9 @@ Working front-end prototype: upload resume → paste JD → answer 5 discovery q
 ## 🤖 AI Use Cases (2026)
 See **[AI_USE_CASES.md](AI_USE_CASES.md)** for the full agentic upgrade plan, recommended OSS stack (Claude, Gemini, Grok, Ollama, Aider, OpenHands, Promptfoo, Langfuse, etc.), concrete prompt patterns, eval harness, and cost envelope.
 
+## 🧭 Browser Skill
+See **[browser-skill/SKILL.md](browser-skill/SKILL.md)** and **[browser-skill/PATTERNS.md](browser-skill/PATTERNS.md)** for reusable browser navigation, click, typing, verification, and save-confirmation patterns. Use this with Codex Chrome plugin, Gemini CLI, Claude Code, Cursor, or any AI agent that operates a browser.
+
 ## ⚠️ Limitations
 See **[LIMITATIONS.md](LIMITATIONS.md)** — what's mocked, what needs API keys, what needs a server proxy.
 
