@@ -10,21 +10,22 @@
 <main>
   <div id="ai-banner" class="banner" style="display:none"></div>
   <div class="row" style="margin-bottom:1rem">
-    <span class="dim">Live AI keys:</span>
-    <button class="btn btn-ghost" onclick="app.setKey('anthropic')">+ Claude</button>
-    <button class="btn btn-ghost" onclick="app.setKey('gemini')">+ Gemini</button>
-    <button class="btn btn-ghost" onclick="app.setKey('grok')">+ Grok</button>
+    <span class="dim">Mode:</span>
+    <span class="badge b-ok">DnD Auto</span>
+    <span class="badge b-info">Deterministic first</span>
+    <span class="badge b-warn">Groq only for final polish</span>
   </div>
 
   <div class="grid" style="grid-template-columns:1fr 1fr">
-    <div class="card"><h3>1. Master Resume</h3>
+    <div class="card drop-zone" id="resume-drop"><h3>1. Master Resume / Context</h3>
       <input type="file" id="resume-file" accept=".docx,.md,.pdf" class="input">
-      <div class="dim" style="margin-top:.5rem;font-size:.8rem">Mock parse — file never leaves your browser.</div>
+      <div class="dim" style="margin-top:.5rem;font-size:.8rem">Drag/drop .md, .txt, .docx, or .pdf. Text/Markdown parsed in browser. File never auto-uploads.</div>
       <pre id="resume-preview" style="margin-top:.5rem;display:none"></pre>
     </div>
-    <div class="card"><h3>2. Job Description</h3>
+    <div class="card drop-zone" id="jd-drop"><h3>2. Job Description</h3>
       <textarea id="jd" class="textarea" rows="6" placeholder="Paste target JD..."></textarea>
       <button class="btn" style="margin-top:.5rem" onclick="parseJD()">Parse JD</button>
+      <button class="btn btn-ghost" style="margin-top:.5rem" onclick="runAutoMode()">Run Auto Mode</button>
       <div id="jd-parsed" class="dim" style="font-size:.825rem;margin-top:.5rem"></div>
     </div>
   </div>
@@ -35,10 +36,9 @@
 
   <div class="card" style="margin-top:1rem"><h3>4. Model</h3>
     <div class="row">
-      <label><input type="radio" name="model" value="claude" checked> Claude Opus 4.7</label>
-      <label><input type="radio" name="model" value="gemini"> Gemini 2.x</label>
-      <label><input type="radio" name="model" value="grok"> Grok</label>
-      <label><input type="radio" name="model" value="ollama"> Ollama (local)</label>
+      <label><input type="radio" name="model" value="deterministic" checked> Deterministic</label>
+      <label><input type="radio" name="model" value="groq"> Groq final polish</label>
+      <label><input type="radio" name="model" value="ollama"> Ollama local</label>
     </div>
   </div>
 
@@ -59,6 +59,8 @@
       <ul id="bullets" style="margin:0;padding-left:1.2rem"></ul></div>
     <div class="card" style="margin-top:1rem"><h3>Provenance Map</h3>
       <table><thead><tr><th>Bullet</th><th>Source</th></tr></thead><tbody id="provenance"></tbody></table></div>
+    <div class="card" style="margin-top:1rem"><h3>Apply Package <span class="badge b-warn">Draft only</span></h3>
+      <div id="apply-package" class="dim"></div></div>
     <div style="text-align:center;margin:1rem 0">
       <button class="btn" onclick="downloadMock()">⬇ Download tailored.docx (mock)</button>
     </div>

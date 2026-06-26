@@ -64,6 +64,14 @@ License: MIT
 
 Working front-end prototype: upload resume → paste JD → answer 5 discovery questions → see ATS + Human scores + provenance map. Mock backend by default; paste your Anthropic key into browser localStorage to attempt live Claude calls.
 
+DnD Auto Mode is now available in the prototype:
+- drag/drop Markdown or text resume context
+- paste/drop JD
+- auto-parse JD
+- auto-generate discovery questions
+- auto-generate resume draft, scores, provenance, and apply package
+- stop before any external save, upload, message, or submit action
+
 ## 🤖 AI Use Cases (2026)
 See **[AI_USE_CASES.md](AI_USE_CASES.md)** for the full agentic upgrade plan, recommended OSS stack (Claude, Gemini, Grok, Ollama, Aider, OpenHands, Promptfoo, Langfuse, etc.), concrete prompt patterns, eval harness, and cost envelope.
 
